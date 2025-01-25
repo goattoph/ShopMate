@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "ipt.dam.shopmate"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "ipt.dam.shopmate"
@@ -45,4 +45,8 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    implementation ("com.squareup.retrofit2:retrofit:2.3.0")
+    implementation ("com.squareup.retrofit2:converter-gson:2.3.0")
+    implementation ("com.squareup.okhttp3:okhttp:4.11.0")
+    implementation ("com.squareup.okhttp3:okhttp-urlconnection:4.11.0")
 }
