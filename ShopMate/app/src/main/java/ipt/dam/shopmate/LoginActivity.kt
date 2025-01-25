@@ -19,7 +19,7 @@ import java.net.CookieHandler
 import java.net.CookieManager
 import java.net.CookiePolicy
 
-
+//usámos chatgpt no desenvolvimento da classe
 class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
