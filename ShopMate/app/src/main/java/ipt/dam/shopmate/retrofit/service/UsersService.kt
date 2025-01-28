@@ -1,7 +1,13 @@
 package ipt.dam.shopmate.retrofit.service
+import ipt.dam.shopmate.models.UsersList
+import ipt.dam.shopmate.models.Item
 import retrofit2.Call
 import retrofit2.http.Body
+import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.POST
+import retrofit2.http.Path
+
 //import ipt.dam.api.model.APIResult
 
 //interface UsersService {
@@ -30,6 +36,8 @@ data class LoginResponse(
 // Data class para o registo
 data class RegisterRequest(val userName:String, val email: String, val password: String)
 
+data class ListRequest(val listName: String)
+
 interface UsersService {
 
     // Endpoint para login
@@ -43,4 +51,10 @@ interface UsersService {
     // Endpoint para logout
     @POST("api/Utilizadores/log-out-user")
     fun logOut(): Call<Void>
+
+    @GET("api/Lists/get-lists")
+    fun getLists(): Call<List<UsersList>>
+
+    @GET("api/items/get-list-items/{listId}")
+    fun getItems(@Path("listId") listId: Int): Call<List<Item>>
 }

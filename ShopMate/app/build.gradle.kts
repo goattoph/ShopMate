@@ -49,4 +49,5 @@ dependencies {
     implementation ("com.squareup.retrofit2:converter-gson:2.3.0")
     implementation ("com.squareup.okhttp3:okhttp:4.11.0")
     implementation ("com.squareup.okhttp3:okhttp-urlconnection:4.11.0")
+    implementation ("com.github.bumptech.glide:glide:4.15.1")
 }
