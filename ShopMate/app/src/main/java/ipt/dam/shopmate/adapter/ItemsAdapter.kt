@@ -12,34 +12,41 @@ import ipt.dam.shopmate.models.Item
 
 class ItemsAdapter(private var items: List<Item>) : RecyclerView.Adapter<ItemsAdapter.ItemViewHolder>() {
 
+    // Metodo que cria e devolve o ViewHolder
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
+        // Define o layout
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_row, parent, false)
         return ItemViewHolder(itemView)
     }
 
+    // Metodo que vai associar os dados do item da lista ao ViewHolder na posição indicada
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val item = items[position]
-        holder.itemNameTextView.text = item.itemName
+        // Atualiza os elementos com os dados do item
+        holder.itemNameTextView.text = item.itemName // Nome
         Glide.with(holder.itemView.context)
             .load("https://my-favorite-things.azurewebsites.net/Imagens/${item.image}")
-            .into(holder.itemImageView)
-        holder.priceTextView.text = "Preço: ${item.price}€"
-        holder.amountTextView.text = "Quantidade: ${item.amount}"
-        holder.isCheckedTextView.text = "Feito: ${item.isChecked}"
+            .into(holder.itemImageView) // Imagem
+        holder.priceTextView.text = "Preço: ${item.price}€" // Preço
+        holder.amountTextView.text = "Quantidade: ${item.amount}" // Quantidade
+        holder.isCheckedTextView.text = "Feito: ${item.isChecked}" // Se o item está ou não checked
     }
 
+    // Metodo que devolve o número de itens da lista
     override fun getItemCount(): Int = items.size
 
+    // Metodo para atualizar a lista de itens, e atualizar a interface
     fun updateItems(newItems: List<Item>) {
         items = newItems
         notifyDataSetChanged()
     }
 
+    // ViewHolder que tem as referências para as views de cada item
     inner class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val itemNameTextView: TextView = itemView.findViewById(R.id.tvItemName)
-        val itemImageView: ImageView = itemView.findViewById(R.id.ivListImage)
-        val priceTextView: TextView = itemView.findViewById(R.id.tvPrice)
-        val amountTextView: TextView = itemView.findViewById(R.id.tvAmount)
-        val isCheckedTextView : TextView = itemView.findViewById(R.id.tvChecked)
+        val itemNameTextView: TextView = itemView.findViewById(R.id.tvItemName) // Nome
+        val itemImageView: ImageView = itemView.findViewById(R.id.ivListImage) // Imagem
+        val priceTextView: TextView = itemView.findViewById(R.id.tvPrice) // Preço
+        val amountTextView: TextView = itemView.findViewById(R.id.tvAmount) // Quantidade
+        val isCheckedTextView : TextView = itemView.findViewById(R.id.tvChecked) // Se o item está ou não checked
     }
 }

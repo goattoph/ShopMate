@@ -22,13 +22,11 @@ import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var listsAdapter: ListsAdapter
-    private var lists: List<UsersList> = mutableListOf()
-
+    // Metodo chamado quando a Atividade é criada
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        // Define o layout
         setContentView(R.layout.activity_main)
 
         // Configurar o ViewPager2 com o adaptador

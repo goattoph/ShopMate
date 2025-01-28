@@ -3,6 +3,7 @@ import ipt.dam.shopmate.models.UsersList
 import ipt.dam.shopmate.models.Item
 import retrofit2.Call
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
@@ -38,6 +39,8 @@ data class RegisterRequest(val userName:String, val email: String, val password:
 
 data class ListRequest(val listName: String)
 
+data class CreateListRequest(val name: String)
+
 interface UsersService {
 
     // Endpoint para login
@@ -52,9 +55,15 @@ interface UsersService {
     @POST("api/Utilizadores/log-out-user")
     fun logOut(): Call<Void>
 
+    // Endpoint para ir buscar as listas do utilizador autenticado
     @GET("api/Lists/get-lists")
     fun getLists(): Call<List<UsersList>>
 
+    // Endpoint para is buscar os itens referentes a uma lista
     @GET("api/items/get-list-items/{listId}")
     fun getItems(@Path("listId") listId: Int): Call<List<Item>>
+
+    // Endpoint para criar uma lista
+    @POST("api/Lists/create-list")
+    fun createList(@Body request: CreateListRequest): Call<Void>
 }

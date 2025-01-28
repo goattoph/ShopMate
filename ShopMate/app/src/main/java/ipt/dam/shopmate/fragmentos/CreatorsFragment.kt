@@ -7,6 +7,7 @@ import ipt.dam.shopmate.R
 
 
 class CreatorsFragment : Fragment(R.layout.fragment_creators) {
+    // Metodo chamado quando a view do fragmento é criada
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
     }
