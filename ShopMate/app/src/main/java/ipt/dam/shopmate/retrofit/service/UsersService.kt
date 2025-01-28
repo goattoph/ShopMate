@@ -37,8 +37,6 @@ data class LoginResponse(
 // Data class para o registo
 data class RegisterRequest(val userName:String, val email: String, val password: String)
 
-data class ListRequest(val listName: String)
-
 data class CreateListRequest(val name: String)
 
 interface UsersService {
@@ -66,4 +64,8 @@ interface UsersService {
     // Endpoint para criar uma lista
     @POST("api/Lists/create-list")
     fun createList(@Body request: CreateListRequest): Call<Void>
+
+    // Endpoint para eliminar uma lista
+    @DELETE("api/Lists/delete-list/{listId}")
+    fun deleteList(@Path("listId") listId: Int): Call<Void>
 }

@@ -8,7 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import ipt.dam.shopmate.R
 import ipt.dam.shopmate.models.UsersList
 
-class ListsAdapter( private val lists: List<UsersList>, private val onListClick: (Int) -> Unit) : RecyclerView.Adapter<ListsAdapter.ListViewHolder>() {
+class ListsAdapter( private val lists: List<UsersList>,
+                    private val onListClick: (Int) -> Unit,
+                    private val onDeleteClick: (Int) -> Unit) : RecyclerView.Adapter<ListsAdapter.ListViewHolder>() {
 
     // Metodo que cria o ViewHolder
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
@@ -27,6 +29,11 @@ class ListsAdapter( private val lists: List<UsersList>, private val onListClick:
         holder.itemView.setOnClickListener {
             onListClick(list.listId)
         }
+
+        // Adiciona um clique no botão de apagar que chama o onDeleteClick, passando-lhe o id da lista
+        holder.deleteButton.setOnClickListener {
+            onDeleteClick(list.listId)
+        }
     }
 
     // Metodo que devolve o número de listas
@@ -35,5 +42,6 @@ class ListsAdapter( private val lists: List<UsersList>, private val onListClick:
     // ViewHolder que tem as referências para as views de cada lista
     inner class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val listNameTextView: TextView = itemView.findViewById(R.id.tvListName) // Nome da Lista
+        val deleteButton: TextView = itemView.findViewById(R.id.btnDeleteList) // Botão para apagar uma lista
     }
 }

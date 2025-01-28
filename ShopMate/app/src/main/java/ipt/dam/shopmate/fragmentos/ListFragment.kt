@@ -35,11 +35,14 @@ class ListFragment : Fragment(R.layout.fragment_list) {
         recyclerView.layoutManager = LinearLayoutManager(context)
 
         // Inicializa o adaptador
-        listsAdapter = ListsAdapter(lists) { listId ->
+        listsAdapter = ListsAdapter(lists, { listId ->
             val intent = Intent(context, ItemsActivity::class.java)
             intent.putExtra("listId", listId)
             startActivity(intent)
-        }
+        }, { listId ->
+            // Apagar a lista
+            deleteList(listId)
+        })
         recyclerView.adapter = listsAdapter
 
         // Carregar as listas do utilizador autenticado
@@ -61,12 +64,14 @@ class ListFragment : Fragment(R.layout.fragment_list) {
                     // Ordenar as listas por número de id (mais recente maior id)
                     lists = lists.sortedByDescending { it.listId.toInt() }
                     // Atualiza o Adapter com as novas listas
-                    listsAdapter = ListsAdapter(lists) { listId ->
+                    listsAdapter = ListsAdapter(lists, { listId ->
                         // Ação quando se clica numa lista, navega para a atividade de mostrar itens
                         val intent = Intent(context, ItemsActivity::class.java)
                         intent.putExtra("listId", listId)
                         startActivity(intent)
-                    }
+                    }, { listId ->
+                        deleteList(listId)
+                    })
                     recyclerView.adapter = listsAdapter
                 } else {
                     Toast.makeText(context, "Erro ao carregar as listas", Toast.LENGTH_SHORT).show()
@@ -77,6 +82,43 @@ class ListFragment : Fragment(R.layout.fragment_list) {
                 Toast.makeText(context, "Erro ao conectar", Toast.LENGTH_SHORT).show()
             }
         })
+    }
+
+    // Metodo para eliminar uma lista
+    private fun deleteList(listId: Int) {
+        // Obter o contexto do fragmento
+        val context = requireContext()
+        // Criar e mostrar um AlertDialog para confirmar a exclusão da lista
+        val alertDialog = androidx.appcompat.app.AlertDialog.Builder(context)
+            .setTitle("Confirmar exclusão!")
+            .setMessage("Tem a certeza de que deseja apagar esta lista?")
+            .setPositiveButton("Sim") { dialog, _ ->
+                // Caso sim, a lista é eliminada
+                RetrofitInitializer.usersService.deleteList(listId).enqueue(object : Callback<Void> {
+                    override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                        if (response.isSuccessful) {
+                            Toast.makeText(context, "Lista apagada com sucesso", Toast.LENGTH_SHORT).show()
+                            // Recarrega as listas após a exclusão
+                            loadLists()
+                        } else {
+                            Toast.makeText(context, "Erro ao apagar a lista", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                    // Metodo chamado em caso de erro
+                    override fun onFailure(call: Call<Void>, t: Throwable) {
+                        Toast.makeText(context, "Erro ao conectar", Toast.LENGTH_SHORT).show()
+                    }
+                })
+                // Fecha o dialog
+                dialog.dismiss()
+            }
+            .setNegativeButton("Não") { dialog, _ ->
+                // Caso não, fecha o dialog
+                dialog.dismiss()
+            }
+            .create()
+        // Mostrar o dialog
+        alertDialog.show()
     }
 
     // Metodo chamado sempre que o fragmento é retomado
