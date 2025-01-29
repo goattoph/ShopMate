@@ -27,7 +27,7 @@ import retrofit2.http.Path
 // Data class para representar o corpo da requisição de login
 data class LoginRequest(val email: String, val password: String)
 
-// Data class para representar a resposta d0 login
+// Data class para representar a resposta do login
 data class LoginResponse(
     val message: String,
     val userName: String,
@@ -37,7 +37,11 @@ data class LoginResponse(
 // Data class para o registo
 data class RegisterRequest(val userName:String, val email: String, val password: String)
 
+// Data class para criar uma lista
 data class CreateListRequest(val name: String)
+
+// Data class para criar um item
+data class CreateItemRequest(val itemName: String, val itemImage: String, val amount: Int, val isChecked: Boolean)
 
 interface UsersService {
 
@@ -57,10 +61,6 @@ interface UsersService {
     @GET("api/Lists/get-lists")
     fun getLists(): Call<List<UsersList>>
 
-    // Endpoint para is buscar os itens referentes a uma lista
-    @GET("api/items/get-list-items/{listId}")
-    fun getItems(@Path("listId") listId: Int): Call<List<Item>>
-
     // Endpoint para criar uma lista
     @POST("api/Lists/create-list")
     fun createList(@Body request: CreateListRequest): Call<Void>
@@ -68,4 +68,16 @@ interface UsersService {
     // Endpoint para eliminar uma lista
     @DELETE("api/Lists/delete-list/{listId}")
     fun deleteList(@Path("listId") listId: Int): Call<Void>
+
+    // Endpoint para is buscar os itens referentes a uma lista
+    @GET("api/items/get-list-items/{listId}")
+    fun getItems(@Path("listId") listId: Int): Call<List<Item>>
+
+    // Endpoint para criar um item dentro de uma lista
+    @POST("api/items/create-item/{listId}")
+    fun createItem(@Path("listId") listId: Int, @Body request: CreateItemRequest): Call<Void>
+
+    // Endpoint para eliminar um item de uma lista
+    @DELETE("api/items/delete-item/{itemId}")
+    fun deleteItem(@Path("itemId") itemId: Int): Call<Void>
 }

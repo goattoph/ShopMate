@@ -10,7 +10,8 @@ import com.bumptech.glide.Glide
 import ipt.dam.shopmate.R
 import ipt.dam.shopmate.models.Item
 
-class ItemsAdapter(private var items: List<Item>) : RecyclerView.Adapter<ItemsAdapter.ItemViewHolder>() {
+class ItemsAdapter(private var items: List<Item>,
+                   private val onDeleteClick: (Int) -> Unit ) : RecyclerView.Adapter<ItemsAdapter.ItemViewHolder>() {
 
     // Metodo que cria e devolve o ViewHolder
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
@@ -27,9 +28,14 @@ class ItemsAdapter(private var items: List<Item>) : RecyclerView.Adapter<ItemsAd
         Glide.with(holder.itemView.context)
             .load("https://my-favorite-things.azurewebsites.net/Imagens/${item.image}")
             .into(holder.itemImageView) // Imagem
-        holder.priceTextView.text = "Preço: ${item.price}€" // Preço
+        //holder.priceTextView.text = "Preço: ${item.price}€" // Preço
         holder.amountTextView.text = "Quantidade: ${item.amount}" // Quantidade
         holder.isCheckedTextView.text = "Feito: ${item.isChecked}" // Se o item está ou não checked
+
+        // Adiciona um clique no botão de apagar que chama o onDeleteClick, passando-lhe o id do item
+        holder.deleteButton.setOnClickListener {
+            onDeleteClick(item.itemId)
+        }
     }
 
     // Metodo que devolve o número de itens da lista
@@ -45,8 +51,8 @@ class ItemsAdapter(private var items: List<Item>) : RecyclerView.Adapter<ItemsAd
     inner class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val itemNameTextView: TextView = itemView.findViewById(R.id.tvItemName) // Nome
         val itemImageView: ImageView = itemView.findViewById(R.id.ivListImage) // Imagem
-        val priceTextView: TextView = itemView.findViewById(R.id.tvPrice) // Preço
         val amountTextView: TextView = itemView.findViewById(R.id.tvAmount) // Quantidade
         val isCheckedTextView : TextView = itemView.findViewById(R.id.tvChecked) // Se o item está ou não checked
+        val deleteButton: TextView = itemView.findViewById(R.id.btnDeleteItem) // Botão de apagar item
     }
 }

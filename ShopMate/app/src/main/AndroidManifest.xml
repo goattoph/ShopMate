@@ -28,6 +28,7 @@
         <activity android:name=".atividades.RegisterActivity"></activity>
         <activity android:name=".atividades.ItemsActivity"></activity>
         <activity android:name=".atividades.CreateListActivity" android:theme="@style/Theme.AppCompat.Dialog" ></activity>
+        <activity android:name=".atividades.CreateItemActivity"></activity>
     </application>
 
 </manifest>
