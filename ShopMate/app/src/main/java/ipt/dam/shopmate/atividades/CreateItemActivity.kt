@@ -139,7 +139,7 @@ class CreateItemActivity : AppCompatActivity() {
             itemNamePart,
             amountPart,
             isCheckedPart,
-            imagePart // Passando a imagem (se houver) para a requisição
+            imagePart
         )
 
         call.enqueue(object : Callback<Void> {

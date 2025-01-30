@@ -11,7 +11,8 @@ import ipt.dam.shopmate.R
 import ipt.dam.shopmate.models.Item
 
 class ItemsAdapter(private var items: List<Item>,
-                   private val onDeleteClick: (Int) -> Unit ) : RecyclerView.Adapter<ItemsAdapter.ItemViewHolder>() {
+                   private val onDeleteClick: (Int) -> Unit,
+                   private val onEditClick: (Int) -> Unit ) : RecyclerView.Adapter<ItemsAdapter.ItemViewHolder>() {
 
     // Metodo que cria e devolve o ViewHolder
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
@@ -35,6 +36,10 @@ class ItemsAdapter(private var items: List<Item>,
         // Adiciona um clique no botão de apagar que chama o onDeleteClick, passando-lhe o id do item
         holder.deleteButton.setOnClickListener {
             onDeleteClick(item.itemId)
+        }
+
+        holder.isCheckedTextView.setOnClickListener {
+            onEditClick(item.itemId)
         }
     }
 

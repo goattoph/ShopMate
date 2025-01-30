@@ -93,6 +93,10 @@ interface UsersService {
         @Part itemImage: MultipartBody.Part?
     ): Call<Void>
 
+    // Endpoint para editar o isChecked de um item
+    @PUT("api/items/edit-is-checked/{itemId}")
+    fun editIsChecked(@Path("itemId") itemId: Int): Call<Void>
+
     // Endpoint para eliminar um item de uma lista
     @DELETE("api/items/delete-item/{itemId}")
     fun deleteItem(@Path("itemId") itemId: Int): Call<Void>

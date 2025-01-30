@@ -40,6 +40,8 @@ class ItemsActivity : AppCompatActivity() {
         itemsAdapter = ItemsAdapter(items, { itemId ->
             // Função de apagar um item
             deleteItem(itemId)
+        }, { itemId ->
+            editIsChecked(itemId)
         })
 
         recyclerView.adapter = itemsAdapter
@@ -144,6 +146,33 @@ class ItemsActivity : AppCompatActivity() {
             }
             .create()
         alertDialog.show()
+    }
+
+    // Metodo para atualizar o isChecked (marcar um item como conluído)
+    private fun editIsChecked(itemId: Int){
+        val context = this
+        RetrofitInitializer.usersService.editIsChecked(itemId)
+            .enqueue(object : Callback<Void> {
+                override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                    if (response.isSuccessful) {
+                        Toast.makeText(
+                            context,
+                            "Item marcado como concluído!",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        // Atualiza os items após ser marcado como concluído
+                        loadItems()
+                    } else {
+                        // Caso haja erro ao atualizar o isChecked
+                        Toast.makeText(context, "Erro ao marcar o item como concluído", Toast.LENGTH_SHORT)
+                            .show()
+                    }
+                }
+                // Em caso de falha na requisição
+                override fun onFailure(call: Call<Void>, t: Throwable) {
+                    Toast.makeText(context, "Erro ao conectar", Toast.LENGTH_SHORT).show()
+                }
+            })
     }
 
     // Metodo para recarregar os items quando voltamos a esta atividade
