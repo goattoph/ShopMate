@@ -39,34 +39,5 @@ class MainActivity : AppCompatActivity() {
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
             tab.text = fragmentAdapter.getTitle(position)
         }.attach()
-
-        val logOutText = findViewById<TextView>(R.id.tvLogOut)
-        logOutText.setOnClickListener {
-            RetrofitInitializer.usersService.logOut().enqueue(object : Callback<Void> {
-                override fun onResponse(call: Call<Void>, response: Response<Void>) {
-                    if (response.isSuccessful) {
-                        val userPreferences = UsersPreferences(this@MainActivity)
-                        userPreferences.clearPreferences()
-                        val intent = Intent(this@MainActivity, LoginActivity::class.java)
-                        startActivity(intent)
-                        Toast.makeText(
-                            this@MainActivity,
-                            "Sair da conta realizado com sucesso",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    } else {
-                        Toast.makeText(
-                            this@MainActivity,
-                            "Erro ao sair da conta: ${response.message()}",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                }
-
-                override fun onFailure(call: Call<Void>, t: Throwable) {
-                    Toast.makeText(this@MainActivity, "Erro ao conectar", Toast.LENGTH_SHORT).show()
-                }
-            })
-        }
     }
 }

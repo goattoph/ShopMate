@@ -1,12 +1,16 @@
 package ipt.dam.shopmate.retrofit.service
 import ipt.dam.shopmate.models.UsersList
 import ipt.dam.shopmate.models.Item
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Header
+import retrofit2.http.Multipart
 import retrofit2.http.POST
+import retrofit2.http.Part
 import retrofit2.http.Path
 
 //import ipt.dam.api.model.APIResult
@@ -57,6 +61,10 @@ interface UsersService {
     @POST("api/Utilizadores/log-out-user")
     fun logOut(): Call<Void>
 
+    // Endpoint para apagar conta
+    @DELETE("api/Utilizadores/delete-user/{id}")
+    fun deleteUser(@Path("id") id: Int): Call<Void>
+
     // Endpoint para ir buscar as listas do utilizador autenticado
     @GET("api/Lists/get-lists")
     fun getLists(): Call<List<UsersList>>
@@ -74,8 +82,14 @@ interface UsersService {
     fun getItems(@Path("listId") listId: Int): Call<List<Item>>
 
     // Endpoint para criar um item dentro de uma lista
+    @Multipart
     @POST("api/items/create-item/{listId}")
-    fun createItem(@Path("listId") listId: Int, @Body request: CreateItemRequest): Call<Void>
+    fun createItem(
+        @Path("listId") listId: Int,
+        @Part("itemName") itemName: RequestBody,
+        @Part("amount") amount: RequestBody,
+        @Part("isChecked") isChecked: RequestBody
+    ): Call<Void>
 
     // Endpoint para eliminar um item de uma lista
     @DELETE("api/items/delete-item/{itemId}")
