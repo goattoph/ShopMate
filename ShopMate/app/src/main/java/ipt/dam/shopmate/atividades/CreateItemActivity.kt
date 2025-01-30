@@ -1,32 +1,47 @@
 package ipt.dam.shopmate.atividades
 
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.os.Bundle
+import android.provider.MediaStore
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import android.Manifest
+import android.util.Log
 import ipt.dam.shopmate.R
 import ipt.dam.shopmate.models.Item
 import ipt.dam.shopmate.retrofit.RetrofitInitializer
 import ipt.dam.shopmate.retrofit.service.CreateItemRequest
 import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.File
+import java.io.FileOutputStream
 
-
-//usámos chatgpt no desenvolvimento da classe
 class CreateItemActivity : AppCompatActivity() {
 
     private lateinit var editTextItemName: EditText
     private lateinit var editTextAmount: EditText
     private lateinit var btnUploadItem: Button
+    private lateinit var btnCancelItem: Button
+    private lateinit var imageView: ImageView
+    private lateinit var takePhoto: Button
 
-    // Metodo chamado quando a atividade é criada
+    private val CAMERA_REQUEST_CODE = 100
+    private var itemImagePart: MultipartBody.Part? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.create_item)
@@ -34,21 +49,76 @@ class CreateItemActivity : AppCompatActivity() {
         editTextItemName = findViewById(R.id.editTextItemName)
         editTextAmount = findViewById(R.id.editTextAmount)
         btnUploadItem = findViewById(R.id.btnUploadItem)
+        btnCancelItem = findViewById(R.id.btnCancelItem)
+        imageView = findViewById(R.id.imageViewItem)
+        takePhoto = findViewById(R.id.btnTakePhoto)
+
+        // Verifica permissões
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA), CAMERA_REQUEST_CODE)
+        }
+
+        takePhoto.setOnClickListener {
+            // Abre a câmera para tirar a foto
+            val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+            startActivityForResult(intent, CAMERA_REQUEST_CODE)
+        }
 
         btnUploadItem.setOnClickListener {
-            addItem()
+            // Verifique se a imagem foi tirada e se o itemImagePart não é nulo
+            if (itemImagePart != null) {
+                addItem(itemImagePart!!)
+            } else {
+                addItem(null)
+            }
+        }
+
+        btnCancelItem.setOnClickListener {
+            finish()
+        }
+    }
+
+    // Metodo chamado quando a foto é tirada
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == CAMERA_REQUEST_CODE && resultCode == RESULT_OK) {
+            val imageBitmap = data?.extras?.get("data") as Bitmap
+            imageView.setImageBitmap(imageBitmap)
+
+            // Salvar a imagem em um arquivo temporário
+            try {
+                val file = createTempFile("item_image", ".jpg", cacheDir)
+                val outputStream = FileOutputStream(file)
+                imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
+                outputStream.flush()
+                outputStream.close()
+
+                // Log para ver se o arquivo foi criado corretamente
+                Log.d("CreateItemActivity", "Foto salva em: ${file.absolutePath}")
+
+                // Agora você pode usar esse arquivo para enviar na requisição
+                val imageFile = file
+                val requestBody = imageFile.asRequestBody("image/jpeg".toMediaTypeOrNull())
+                itemImagePart = MultipartBody.Part.createFormData("itemImage", imageFile.name, requestBody)
+
+                // Verificar se o itemImagePart não está nulo
+                Log.d("CreateItemActivity", "itemImagePart criado: ${itemImagePart != null}")
+            } catch (e: Exception) {
+                e.printStackTrace()
+                Toast.makeText(this, "Erro ao salvar a imagem!", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
     // Metodo para adicionar um item à lista
-    private fun addItem() {
+    private fun addItem(imagePart: MultipartBody.Part?) {
         val listId = intent.getIntExtra("listId", -1)
         val itemName = editTextItemName.text.toString().trim()
         val amountText = editTextAmount.text.toString().trim()
 
         // Validação dos campos
-        if (itemName.isEmpty() || amountText.isEmpty()) {
-            Toast.makeText(this, "Preencha todos os campos!", Toast.LENGTH_SHORT).show()
+        if (amountText.isEmpty() || itemName.isEmpty() && imagePart == null) {
+            Toast.makeText(this, "O nome ou a imagem é obrigatório, e a quantidade deve ser preenchida!", Toast.LENGTH_SHORT).show()
             return
         }
 
@@ -63,12 +133,13 @@ class CreateItemActivity : AppCompatActivity() {
         val amountPart = amount.toString().toRequestBody("text/plain".toMediaTypeOrNull())
         val isCheckedPart = "false".toRequestBody("text/plain".toMediaTypeOrNull())
 
-        // Envia para a API via Retrofit
+        // Envia para a API via Retrofit com a imagem, se houver
         val call = RetrofitInitializer.usersService.createItem(
             listId,
             itemNamePart,
             amountPart,
-            isCheckedPart
+            isCheckedPart,
+            imagePart // Passando a imagem (se houver) para a requisição
         )
 
         call.enqueue(object : Callback<Void> {
@@ -79,13 +150,10 @@ class CreateItemActivity : AppCompatActivity() {
                         "Item criado com sucesso!",
                         Toast.LENGTH_SHORT
                     ).show()
-                    val intent= Intent()
-                    // Finalizar a atividade e voltar à tela anterior
+                    val intent = Intent()
                     setResult(RESULT_OK, intent)
-                    // Fecha a atividade após sucesso
                     finish()
                 } else {
-                    // Exibe detalhes do erro
                     val errorMessage = response.errorBody()?.string()
                     Toast.makeText(
                         this@CreateItemActivity,
@@ -94,10 +162,9 @@ class CreateItemActivity : AppCompatActivity() {
                     ).show()
                 }
             }
-            // Metodo em caso de falha
+
             override fun onFailure(call: Call<Void>, t: Throwable) {
-                Toast.makeText(this@CreateItemActivity, "Falha na conexão!", Toast.LENGTH_SHORT)
-                    .show()
+                Toast.makeText(this@CreateItemActivity, "Falha na conexão!", Toast.LENGTH_SHORT).show()
             }
         })
     }

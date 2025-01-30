@@ -41,6 +41,7 @@ class ItemsActivity : AppCompatActivity() {
             // Função de apagar um item
             deleteItem(itemId)
         })
+
         recyclerView.adapter = itemsAdapter
 
         // Ir buscar o listId através do Intent
@@ -52,6 +53,11 @@ class ItemsActivity : AppCompatActivity() {
             val intent = Intent(this@ItemsActivity, CreateItemActivity::class.java)
             intent.putExtra("listId", listId)
             startActivity(intent)
+        }
+
+        val btnCancelItem = findViewById<Button>(R.id.btnBackItem)
+        btnCancelItem.setOnClickListener {
+            finish()
         }
 
         // Carregar os itens da lista

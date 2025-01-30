@@ -10,6 +10,7 @@ import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Multipart
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Part
 import retrofit2.http.Path
 
@@ -86,9 +87,10 @@ interface UsersService {
     @POST("api/items/create-item/{listId}")
     fun createItem(
         @Path("listId") listId: Int,
-        @Part("itemName") itemName: RequestBody,
+        @Part("itemName") itemName: RequestBody?,
         @Part("amount") amount: RequestBody,
-        @Part("isChecked") isChecked: RequestBody
+        @Part("isChecked") isChecked: RequestBody,
+        @Part itemImage: MultipartBody.Part?
     ): Call<Void>
 
     // Endpoint para eliminar um item de uma lista
