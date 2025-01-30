@@ -7,7 +7,6 @@ import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
-import retrofit2.http.Header
 import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.PUT
@@ -48,7 +47,7 @@ data class CreateListRequest(val name: String)
 // Data class para criar um item
 data class CreateItemRequest(val itemName: String, val itemImage: String, val amount: Int, val isChecked: Boolean)
 
-interface UsersService {
+interface ApiService {
 
     // Endpoint para login
     @POST("api/Utilizadores/sign-in-user")

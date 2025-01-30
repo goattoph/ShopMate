@@ -50,7 +50,7 @@ class RegisterActivity : AppCompatActivity() {
     private fun register(username: String, email: String, password: String) {
         val request = RegisterRequest(username, email, password)
 
-        RetrofitInitializer.usersService.register(request).enqueue(object : Callback<Void> {
+        RetrofitInitializer.apiService.register(request).enqueue(object : Callback<Void> {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
                 if (response.isSuccessful) {
                     Toast.makeText(this@RegisterActivity, "Registo realizado com sucesso", Toast.LENGTH_SHORT).show()

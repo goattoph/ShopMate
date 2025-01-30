@@ -1,9 +1,7 @@
 package ipt.dam.shopmate.fragmentos
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.Button
@@ -12,7 +10,7 @@ import android.widget.Toast
 import ipt.dam.shopmate.R
 import ipt.dam.shopmate.atividades.LoginActivity
 import ipt.dam.shopmate.retrofit.RetrofitInitializer
-import ipt.dam.shopmate.retrofit.service.UsersPreferences
+import ipt.dam.shopmate.retrofit.service.SharedPreferences
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -32,13 +30,13 @@ class UserFragment : Fragment(R.layout.fragment_user) {
         btnLogOut = view.findViewById(R.id.btnLogOut)
         btnDeleteAccount = view.findViewById(R.id.btnDeleteAccount)
 
-        val userPreferences = UsersPreferences(requireContext())
+        val userPreferences = SharedPreferences(requireContext())
         val username = userPreferences.getUserName()
 
         tvUsername.text = "Username: $username"
 
         btnLogOut.setOnClickListener {
-            RetrofitInitializer.usersService.logOut().enqueue(object : Callback<Void> {
+            RetrofitInitializer.apiService.logOut().enqueue(object : Callback<Void> {
                 override fun onResponse(call: Call<Void>, response: Response<Void>) {
                     if (response.isSuccessful) {
                         userPreferences.clearPreferences()
@@ -70,7 +68,7 @@ class UserFragment : Fragment(R.layout.fragment_user) {
                 .setMessage("Tem a certeza de que deseja apagar a sua conta?")
                 .setPositiveButton("Sim") { dialog, _ ->
                     // Caso sim, a conta é eliminada
-                    RetrofitInitializer.usersService.deleteUser(id).enqueue(object : Callback<Void> {
+                    RetrofitInitializer.apiService.deleteUser(id).enqueue(object : Callback<Void> {
                         override fun onResponse(call: Call<Void>, response: Response<Void>) {
                             if (response.isSuccessful) {
                                 Toast.makeText(context, "Conta apagada com sucesso", Toast.LENGTH_SHORT).show()

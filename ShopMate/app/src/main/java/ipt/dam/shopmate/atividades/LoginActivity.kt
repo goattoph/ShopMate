@@ -9,7 +9,7 @@ import ipt.dam.shopmate.R
 import ipt.dam.shopmate.retrofit.RetrofitInitializer
 import ipt.dam.shopmate.retrofit.service.LoginRequest
 import ipt.dam.shopmate.retrofit.service.LoginResponse
-import ipt.dam.shopmate.retrofit.service.UsersPreferences
+import ipt.dam.shopmate.retrofit.service.SharedPreferences
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -56,7 +56,7 @@ class LoginActivity : AppCompatActivity() {
     private fun login(email: String, password: String) {
         val request = LoginRequest(email, password)
 
-        RetrofitInitializer.usersService.login(request).enqueue(object : Callback<LoginResponse> {
+        RetrofitInitializer.apiService.login(request).enqueue(object : Callback<LoginResponse> {
             override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
                 if (response.isSuccessful) {
                     // Ir buscar os dados do utilizador na resposta
@@ -64,7 +64,7 @@ class LoginActivity : AppCompatActivity() {
                     val userEmail = response.body()?.email
 
                     // Guardar os dados no SharedPreferences
-                    val userPreferences = UsersPreferences(this@LoginActivity)
+                    val userPreferences = SharedPreferences(this@LoginActivity)
                     userName?.let { userPreferences.saveUserName(it) }
                     userEmail?.let { userPreferences.saveUserEmail(it) }
                     userPreferences.setLoggedIn(true);

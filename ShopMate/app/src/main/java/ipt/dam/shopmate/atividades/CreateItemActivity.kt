@@ -134,7 +134,7 @@ class CreateItemActivity : AppCompatActivity() {
         val isCheckedPart = "false".toRequestBody("text/plain".toMediaTypeOrNull())
 
         // Envia para a API via Retrofit com a imagem, se houver
-        val call = RetrofitInitializer.usersService.createItem(
+        val call = RetrofitInitializer.apiService.createItem(
             listId,
             itemNamePart,
             amountPart,

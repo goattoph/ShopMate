@@ -57,7 +57,7 @@ class ListFragment : Fragment(R.layout.fragment_list) {
 
     // Função para atualizar as listas
     private fun loadLists() {
-        RetrofitInitializer.usersService.getLists().enqueue(object : Callback<List<UsersList>> {
+        RetrofitInitializer.apiService.getLists().enqueue(object : Callback<List<UsersList>> {
             override fun onResponse(call: Call<List<UsersList>>, response: Response<List<UsersList>>) {
                 if (response.isSuccessful) {
                     lists = response.body() ?: mutableListOf()
@@ -94,7 +94,7 @@ class ListFragment : Fragment(R.layout.fragment_list) {
             .setMessage("Tem a certeza de que deseja apagar esta lista?")
             .setPositiveButton("Sim") { dialog, _ ->
                 // Caso sim, a lista é eliminada
-                RetrofitInitializer.usersService.deleteList(listId).enqueue(object : Callback<Void> {
+                RetrofitInitializer.apiService.deleteList(listId).enqueue(object : Callback<Void> {
                     override fun onResponse(call: Call<Void>, response: Response<Void>) {
                         if (response.isSuccessful) {
                             Toast.makeText(context, "Lista apagada com sucesso", Toast.LENGTH_SHORT).show()

@@ -72,7 +72,7 @@ class ItemsActivity : AppCompatActivity() {
         val listId = intent.getIntExtra("listId", -1)
         // Verifica se o listId é válido ( -1 Valor padrão quando passado por Intent)
         if (listId != -1) {
-            RetrofitInitializer.usersService.getItems(listId)
+            RetrofitInitializer.apiService.getItems(listId)
                 .enqueue(object : Callback<List<Item>> {
                     // Metodo se a requisição for bem sucedida
                     override fun onResponse(
@@ -115,7 +115,7 @@ class ItemsActivity : AppCompatActivity() {
             .setMessage("Tem a certeza de que deseja apagar este item?")
             .setPositiveButton("Sim") { dialog, _ ->
                 // Se sim, apaga o item especificado
-                RetrofitInitializer.usersService.deleteItem(itemId)
+                RetrofitInitializer.apiService.deleteItem(itemId)
                     .enqueue(object : Callback<Void> {
                         override fun onResponse(call: Call<Void>, response: Response<Void>) {
                             if (response.isSuccessful) {
@@ -151,7 +151,7 @@ class ItemsActivity : AppCompatActivity() {
     // Metodo para atualizar o isChecked (marcar um item como conluído)
     private fun editIsChecked(itemId: Int){
         val context = this
-        RetrofitInitializer.usersService.editIsChecked(itemId)
+        RetrofitInitializer.apiService.editIsChecked(itemId)
             .enqueue(object : Callback<Void> {
                 override fun onResponse(call: Call<Void>, response: Response<Void>) {
                     if (response.isSuccessful) {

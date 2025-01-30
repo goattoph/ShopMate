@@ -65,7 +65,7 @@ class CreateListActivity : AppCompatActivity() {
     private fun createList(name: String, dialog: AlertDialog) {
         // Cria o objeto
         val request = CreateListRequest(name = name)
-        RetrofitInitializer.usersService.createList(request).enqueue(object : Callback<Void> {
+        RetrofitInitializer.apiService.createList(request).enqueue(object : Callback<Void> {
             // Metodo chamado quando a resposta à API é recebida com sucesso
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
                 if (response.isSuccessful) {
