@@ -2,6 +2,7 @@ package ipt.dam.shopmate.atividades
 
 
 import android.content.Intent
+import android.media.Image
 import android.os.Bundle
 import android.view.View
 import android.widget.*
@@ -50,14 +51,14 @@ class ItemsActivity : AppCompatActivity() {
         val listId = intent.getIntExtra("listId", -1)
 
         // Botão para abrir a atividade de criar um item
-        val btnCreateItem = findViewById<Button>(R.id.btnCreateItem)
+        val btnCreateItem = findViewById<ImageView>(R.id.btnCreateItem)
         btnCreateItem.setOnClickListener {
             val intent = Intent(this@ItemsActivity, CreateItemActivity::class.java)
             intent.putExtra("listId", listId)
             startActivity(intent)
         }
 
-        val btnCancelItem = findViewById<Button>(R.id.btnBackItem)
+        val btnCancelItem = findViewById<ImageView>(R.id.btnBackItem)
         btnCancelItem.setOnClickListener {
             finish()
         }

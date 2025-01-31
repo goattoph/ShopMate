@@ -8,5 +8,5 @@ data class Item (
     @SerializedName("itemName") val itemName: String?,
     @SerializedName("image") val image: String,
     @SerializedName("amount") val amount: Int?,
-    @SerializedName("isChecked") val isChecked: Boolean?
+    @SerializedName("isChecked") val isChecked: Boolean
 )

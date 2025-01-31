@@ -34,8 +34,8 @@ class CreateItemActivity : AppCompatActivity() {
 
     private lateinit var editTextItemName: EditText
     private lateinit var editTextAmount: EditText
-    private lateinit var btnUploadItem: Button
-    private lateinit var btnCancelItem: Button
+    private lateinit var btnUploadItem: ImageView
+    private lateinit var btnCancelItem: ImageView
     private lateinit var imageView: ImageView
     private lateinit var takePhoto: Button
 

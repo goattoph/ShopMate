@@ -35,9 +35,21 @@ class MainActivity : AppCompatActivity() {
         viewPager.adapter = fragmentAdapter
 
         // Associar o TabLayout ao ViewPager2
-        val tabLayout = findViewById<TabLayout>(R.id.tab_layout)
-        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
-            tab.text = fragmentAdapter.getTitle(position)
-        }.attach()
+        //val tabLayout = findViewById<TabLayout>(R.id.tab_layout)
+        // Associar o ViewPager ao TabLayout com ícones personalizados
+        //TabLayoutMediator(tabLayout, viewPager) { tab, position ->
+            // Verifica a posição do fragmento
+            //when (position) {
+                //0 -> {
+                   // tab.setIcon(R.drawable.ic_launcher_foreground)
+               // }
+               // 1 -> {
+              //      tab.setIcon(R.drawable.ic_launcher_profile_foreground)
+              //  }
+              //  2 -> {
+               //     tab.setIcon(R.drawable.ic_launcher_creators_foreground)
+              //  }
+            //}
+      //  }.attach()
     }
 }

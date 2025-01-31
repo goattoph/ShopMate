@@ -6,6 +6,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.textfield.TextInputEditText
 import ipt.dam.shopmate.R
 import ipt.dam.shopmate.adapter.ItemsAdapter
 import ipt.dam.shopmate.models.Item
@@ -30,10 +31,9 @@ class CreateListActivity : AppCompatActivity() {
     private fun showCreateListPopup() {
         val dialogView = layoutInflater.inflate(R.layout.create_list, null)
         // Referências para os elementos
-        val etListName = dialogView.findViewById<EditText>(R.id.etPopupListName) // Nome da Lista
-        val btnSave = dialogView.findViewById<Button>(R.id.btnPopupSave) // Botão de Guardar
-        val btnCancel = dialogView.findViewById<Button>(R.id.btnPopupCancel) // Botão de Cancelar
-
+        val etListName = dialogView.findViewById<EditText>(R.id.etPopupListName)
+        val btnSave = dialogView.findViewById<Button>(R.id.btnPopupSave)
+        val btnCancel = dialogView.findViewById<Button>(R.id.btnPopupCancel)
         // Criar um AlertDialog
         val dialog = AlertDialog.Builder(this)
             .setView(dialogView)

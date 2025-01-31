@@ -3,6 +3,7 @@ package ipt.dam.shopmate.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -31,7 +32,7 @@ class ItemsAdapter(private var items: List<Item>,
             .into(holder.itemImageView) // Imagem
         //holder.priceTextView.text = "Preço: ${item.price}€" // Preço
         holder.amountTextView.text = "Quantidade: ${item.amount}" // Quantidade
-        holder.isCheckedTextView.text = "Feito: ${item.isChecked}" // Se o item está ou não checked
+        holder.isCheckedTextView.isChecked = item.isChecked  // Se o item está ou não checked
 
         // Adiciona um clique no botão de apagar que chama o onDeleteClick, passando-lhe o id do item
         holder.deleteButton.setOnClickListener {
@@ -57,7 +58,7 @@ class ItemsAdapter(private var items: List<Item>,
         val itemNameTextView: TextView = itemView.findViewById(R.id.tvItemName) // Nome
         val itemImageView: ImageView = itemView.findViewById(R.id.ivListImage) // Imagem
         val amountTextView: TextView = itemView.findViewById(R.id.tvAmount) // Quantidade
-        val isCheckedTextView : TextView = itemView.findViewById(R.id.tvChecked) // Se o item está ou não checked
-        val deleteButton: TextView = itemView.findViewById(R.id.btnDeleteItem) // Botão de apagar item
+        val isCheckedTextView : CheckBox = itemView.findViewById(R.id.tvChecked) // Se o item está ou não checked
+        val deleteButton: ImageView = itemView.findViewById(R.id.btnDeleteItem) // Botão de apagar item
     }
 }
