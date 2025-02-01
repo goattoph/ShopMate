@@ -1,11 +1,11 @@
-package ipt.dam.shopmate.atividades
+package ipt.dam.shopmate
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import ipt.dam.shopmate.R
 import ipt.dam.shopmate.retrofit.RetrofitInitializer
 import ipt.dam.shopmate.retrofit.service.LoginRequest
 import ipt.dam.shopmate.retrofit.service.LoginResponse
@@ -14,6 +14,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 //import android.webkit.CookieManager
+import okhttp3.JavaNetCookieJar
 import java.net.CookieHandler
 import java.net.CookieManager
 import java.net.CookiePolicy

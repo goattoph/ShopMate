@@ -14,7 +14,6 @@ import ipt.dam.shopmate.R
 import ipt.dam.shopmate.adapter.ItemsAdapter
 import ipt.dam.shopmate.models.Item
 import ipt.dam.shopmate.retrofit.RetrofitInitializer
-import ipt.dam.shopmate.retrofit.service.UsersService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -74,10 +73,7 @@ class ItemsActivity : AppCompatActivity() {
         val listId = intent.getIntExtra("listId", -1)
         // Verifica se o listId é válido ( -1 Valor padrão quando passado por Intent)
         if (listId != -1) {
-            // Criar instância do Retrofit e passar o contexto
-            val retrofit = RetrofitInitializer.getRetrofitInstance(this)
-            val usersService = retrofit.create(UsersService::class.java)
-            usersService.getItems(listId)
+            RetrofitInitializer.usersService.getItems(listId)
                 .enqueue(object : Callback<List<Item>> {
                     // Metodo se a requisição for bem sucedida
                     override fun onResponse(
@@ -120,10 +116,7 @@ class ItemsActivity : AppCompatActivity() {
             .setMessage("Tem a certeza de que deseja apagar este item?")
             .setPositiveButton("Sim") { dialog, _ ->
                 // Se sim, apaga o item especificado
-                // Criar instância do Retrofit e passar o contexto
-                val retrofit = RetrofitInitializer.getRetrofitInstance(this)
-                val usersService = retrofit.create(UsersService::class.java)
-                usersService.deleteItem(itemId)
+                RetrofitInitializer.usersService.deleteItem(itemId)
                     .enqueue(object : Callback<Void> {
                         override fun onResponse(call: Call<Void>, response: Response<Void>) {
                             if (response.isSuccessful) {
@@ -159,10 +152,7 @@ class ItemsActivity : AppCompatActivity() {
     // Metodo para atualizar o isChecked (marcar um item como conluído)
     private fun editIsChecked(itemId: Int){
         val context = this
-        // Criar instância do Retrofit e passar o contexto
-        val retrofit = RetrofitInitializer.getRetrofitInstance(this)
-        val usersService = retrofit.create(UsersService::class.java)
-        usersService.editIsChecked(itemId)
+        RetrofitInitializer.usersService.editIsChecked(itemId)
             .enqueue(object : Callback<Void> {
                 override fun onResponse(call: Call<Void>, response: Response<Void>) {
                     if (response.isSuccessful) {

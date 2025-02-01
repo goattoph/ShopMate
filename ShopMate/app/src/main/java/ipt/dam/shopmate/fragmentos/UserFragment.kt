@@ -13,7 +13,6 @@ import ipt.dam.shopmate.R
 import ipt.dam.shopmate.atividades.LoginActivity
 import ipt.dam.shopmate.retrofit.RetrofitInitializer
 import ipt.dam.shopmate.retrofit.service.UsersPreferences
-import ipt.dam.shopmate.retrofit.service.UsersService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -39,9 +38,7 @@ class UserFragment : Fragment(R.layout.fragment_user) {
         tvUsername.text = "Username: $username"
 
         btnLogOut.setOnClickListener {
-            val retrofit = RetrofitInitializer.getRetrofitInstance(requireContext())
-            val usersService = retrofit.create(UsersService::class.java)
-            usersService.logOut().enqueue(object : Callback<Void> {
+            RetrofitInitializer.usersService.logOut().enqueue(object : Callback<Void> {
                 override fun onResponse(call: Call<Void>, response: Response<Void>) {
                     if (response.isSuccessful) {
                         userPreferences.clearPreferences()
@@ -73,9 +70,7 @@ class UserFragment : Fragment(R.layout.fragment_user) {
                 .setMessage("Tem a certeza de que deseja apagar a sua conta?")
                 .setPositiveButton("Sim") { dialog, _ ->
                     // Caso sim, a conta é eliminada
-                    val retrofit = RetrofitInitializer.getRetrofitInstance(requireContext())
-                    val usersService = retrofit.create(UsersService::class.java)
-                    usersService.deleteUser(id).enqueue(object : Callback<Void> {
+                    RetrofitInitializer.usersService.deleteUser(id).enqueue(object : Callback<Void> {
                         override fun onResponse(call: Call<Void>, response: Response<Void>) {
                             if (response.isSuccessful) {
                                 Toast.makeText(context, "Conta apagada com sucesso", Toast.LENGTH_SHORT).show()

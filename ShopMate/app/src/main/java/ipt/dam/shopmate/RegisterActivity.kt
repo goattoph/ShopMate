@@ -1,10 +1,9 @@
-package ipt.dam.shopmate.atividades
+package ipt.dam.shopmate
 import android.content.Intent
 import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import ipt.dam.shopmate.R
 import ipt.dam.shopmate.retrofit.RetrofitInitializer
 import ipt.dam.shopmate.retrofit.service.RegisterRequest
 import retrofit2.Call
