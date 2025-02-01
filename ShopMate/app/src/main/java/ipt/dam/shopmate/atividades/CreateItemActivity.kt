@@ -14,6 +14,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import android.Manifest
 import android.util.Log
+import android.view.inputmethod.InputMethodManager
 import ipt.dam.shopmate.R
 import ipt.dam.shopmate.models.Item
 import ipt.dam.shopmate.retrofit.RetrofitInitializer
@@ -34,8 +35,8 @@ class CreateItemActivity : AppCompatActivity() {
 
     private lateinit var editTextItemName: EditText
     private lateinit var editTextAmount: EditText
-    private lateinit var btnUploadItem: ImageView
-    private lateinit var btnCancelItem: ImageView
+    private lateinit var btnUploadItem: Button
+    private lateinit var btnCancelItem: Button
     private lateinit var imageView: ImageView
     private lateinit var takePhoto: Button
 
@@ -44,10 +45,10 @@ class CreateItemActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.create_item)
+        setContentView(R.layout.new_item)
 
-        editTextItemName = findViewById(R.id.editTextItemName)
-        editTextAmount = findViewById(R.id.editTextAmount)
+        editTextItemName = findViewById(R.id.etPopupListName)
+        editTextAmount = findViewById(R.id.etQuantity)
         btnUploadItem = findViewById(R.id.btnUploadItem)
         btnCancelItem = findViewById(R.id.btnCancelItem)
         imageView = findViewById(R.id.imageViewItem)
@@ -76,6 +77,8 @@ class CreateItemActivity : AppCompatActivity() {
         btnCancelItem.setOnClickListener {
             finish()
         }
+
+
     }
 
     // Metodo chamado quando a foto é tirada
@@ -84,7 +87,7 @@ class CreateItemActivity : AppCompatActivity() {
         if (requestCode == CAMERA_REQUEST_CODE && resultCode == RESULT_OK) {
             val imageBitmap = data?.extras?.get("data") as Bitmap
             imageView.setImageBitmap(imageBitmap)
-
+            window.statusBarColor = ContextCompat.getColor(this, R.color.grey)
             // Salvar a imagem em um arquivo temporário
             try {
                 val file = createTempFile("item_image", ".jpg", cacheDir)

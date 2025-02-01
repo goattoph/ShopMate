@@ -12,6 +12,7 @@ import ipt.dam.shopmate.R
 import ipt.dam.shopmate.adapter.ListsAdapter
 import ipt.dam.shopmate.atividades.CreateListActivity
 import ipt.dam.shopmate.atividades.ItemsActivity
+import ipt.dam.shopmate.databinding.ActivityMainBinding
 import ipt.dam.shopmate.models.UsersList
 import ipt.dam.shopmate.retrofit.RetrofitInitializer
 import retrofit2.Call
@@ -19,7 +20,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
-class ListFragment : Fragment(R.layout.fragment_list) {
+class ListFragment : Fragment(R.layout.fragment_list){
     // RecyclerView para mostrar as listas
     private lateinit var recyclerView: RecyclerView
     // Adapter que liga as listas ao RecyclerView
