@@ -10,6 +10,7 @@ import ipt.dam.shopmate.retrofit.RetrofitInitializer
 import ipt.dam.shopmate.retrofit.service.LoginRequest
 import ipt.dam.shopmate.retrofit.service.LoginResponse
 import ipt.dam.shopmate.retrofit.service.UsersPreferences
+import ipt.dam.shopmate.retrofit.service.UsersService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -55,8 +56,10 @@ class LoginActivity : AppCompatActivity() {
 
     private fun login(email: String, password: String) {
         val request = LoginRequest(email, password)
-
-        RetrofitInitializer.usersService.login(request).enqueue(object : Callback<LoginResponse> {
+        // Criar instância do Retrofit e passar o contexto
+        val retrofit = RetrofitInitializer.getRetrofitInstance(this)
+        val usersService = retrofit.create(UsersService::class.java)
+        usersService.login(request).enqueue(object : Callback<LoginResponse> {
             override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
                 if (response.isSuccessful) {
                     // Ir buscar os dados do utilizador na resposta

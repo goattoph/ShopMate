@@ -12,6 +12,7 @@ import ipt.dam.shopmate.adapter.ItemsAdapter
 import ipt.dam.shopmate.models.Item
 import ipt.dam.shopmate.retrofit.RetrofitInitializer
 import ipt.dam.shopmate.retrofit.service.CreateListRequest
+import ipt.dam.shopmate.retrofit.service.UsersService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -65,7 +66,10 @@ class CreateListActivity : AppCompatActivity() {
     private fun createList(name: String, dialog: AlertDialog) {
         // Cria o objeto
         val request = CreateListRequest(name = name)
-        RetrofitInitializer.usersService.createList(request).enqueue(object : Callback<Void> {
+        // Criar instância do Retrofit e passar o contexto
+        val retrofit = RetrofitInitializer.getRetrofitInstance(this)
+        val usersService = retrofit.create(UsersService::class.java)
+        usersService.createList(request).enqueue(object : Callback<Void> {
             // Metodo chamado quando a resposta à API é recebida com sucesso
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
                 if (response.isSuccessful) {

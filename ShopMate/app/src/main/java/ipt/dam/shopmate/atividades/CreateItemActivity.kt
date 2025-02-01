@@ -18,6 +18,7 @@ import ipt.dam.shopmate.R
 import ipt.dam.shopmate.models.Item
 import ipt.dam.shopmate.retrofit.RetrofitInitializer
 import ipt.dam.shopmate.retrofit.service.CreateItemRequest
+import ipt.dam.shopmate.retrofit.service.UsersService
 import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -132,9 +133,12 @@ class CreateItemActivity : AppCompatActivity() {
         val itemNamePart = itemName.toRequestBody("text/plain".toMediaTypeOrNull())
         val amountPart = amount.toString().toRequestBody("text/plain".toMediaTypeOrNull())
         val isCheckedPart = "false".toRequestBody("text/plain".toMediaTypeOrNull())
+// Criar instância do Retrofit e passar o contexto
+        val retrofit = RetrofitInitializer.getRetrofitInstance(this)
+        val usersService = retrofit.create(UsersService::class.java)
 
         // Envia para a API via Retrofit com a imagem, se houver
-        val call = RetrofitInitializer.usersService.createItem(
+        val call = usersService.createItem(
             listId,
             itemNamePart,
             amountPart,

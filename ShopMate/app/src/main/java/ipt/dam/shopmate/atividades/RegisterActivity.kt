@@ -7,6 +7,7 @@ import androidx.core.content.ContextCompat
 import ipt.dam.shopmate.R
 import ipt.dam.shopmate.retrofit.RetrofitInitializer
 import ipt.dam.shopmate.retrofit.service.RegisterRequest
+import ipt.dam.shopmate.retrofit.service.UsersService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -49,8 +50,10 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun register(username: String, email: String, password: String) {
         val request = RegisterRequest(username, email, password)
-
-        RetrofitInitializer.usersService.register(request).enqueue(object : Callback<Void> {
+        // Criar instância do Retrofit e passar o contexto
+        val retrofit = RetrofitInitializer.getRetrofitInstance(this)
+        val usersService = retrofit.create(UsersService::class.java)
+        usersService.register(request).enqueue(object : Callback<Void> {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
                 if (response.isSuccessful) {
                     Toast.makeText(this@RegisterActivity, "Registo realizado com sucesso", Toast.LENGTH_SHORT).show()
