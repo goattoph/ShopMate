@@ -14,7 +14,7 @@ class SplashActivity : AppCompatActivity() {
 
         // Se o utilizador estiver logado, vai para a MainActivity
         if (isLoggedIn) {
-            startActivity(Intent(this, MainActivity::class.java))
+            startActivity(Intent(this, LoginActivity::class.java))
         } else {
             // Caso contrário, vai para a LoginActivity
             startActivity(Intent(this, LoginActivity::class.java))

@@ -37,12 +37,20 @@ class ItemsActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.recyclerViewItems)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        // Passa a função deleteItem para o adapter
+        // Passa a função deleteItem, editIsChecked e começa a atividade CreateItemActivity para o adapter
         itemsAdapter = ItemsAdapter(items, { itemId ->
-            // Função de apagar um item
             deleteItem(itemId)
         }, { itemId ->
             editIsChecked(itemId)
+        }, { item ->
+            // O metodo de editar um item é realizado na CreateItemActivity, daí o motivo de ser chamada
+            val intent = Intent(this@ItemsActivity, CreateItemActivity::class.java)
+            intent.putExtra("listId", intent.getIntExtra("listId", -1))
+            intent.putExtra("itemId", item.itemId)
+            intent.putExtra("itemName", item.itemName)
+            intent.putExtra("amount", item.amount)
+            intent.putExtra("image", item.image)
+            startActivity(intent)
         })
 
         recyclerView.adapter = itemsAdapter
@@ -58,6 +66,7 @@ class ItemsActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        // Botão para voltar à pagina das listas
         val btnCancelItem = findViewById<ImageView>(R.id.btnBackItem)
         btnCancelItem.setOnClickListener {
             finish()

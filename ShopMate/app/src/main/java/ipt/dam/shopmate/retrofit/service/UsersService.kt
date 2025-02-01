@@ -45,9 +45,6 @@ data class RegisterRequest(val userName:String, val email: String, val password:
 // Data class para criar uma lista
 data class CreateListRequest(val name: String)
 
-// Data class para criar um item
-data class CreateItemRequest(val itemName: String, val itemImage: String, val amount: Int, val isChecked: Boolean)
-
 interface UsersService {
 
     // Endpoint para login
@@ -86,6 +83,17 @@ interface UsersService {
     @Multipart
     @POST("api/items/create-item/{listId}")
     fun createItem(
+        @Path("listId") listId: Int,
+        @Part("itemName") itemName: RequestBody?,
+        @Part("amount") amount: RequestBody,
+        @Part("isChecked") isChecked: RequestBody,
+        @Part itemImage: MultipartBody.Part?
+    ): Call<Void>
+
+    // Endpoint para editar um item
+    @Multipart
+    @PUT("api/items/edit-item/{listId}")
+    fun editItem(
         @Path("listId") listId: Int,
         @Part("itemName") itemName: RequestBody?,
         @Part("amount") amount: RequestBody,

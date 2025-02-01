@@ -13,7 +13,8 @@ import ipt.dam.shopmate.models.Item
 
 class ItemsAdapter(private var items: List<Item>,
                    private val onDeleteClick: (Int) -> Unit,
-                   private val onEditClick: (Int) -> Unit ) : RecyclerView.Adapter<ItemsAdapter.ItemViewHolder>() {
+                   private val onIsCheckedClick: (Int) -> Unit,
+                   private val onEditClick: (Item) -> Unit) : RecyclerView.Adapter<ItemsAdapter.ItemViewHolder>() {
 
     // Metodo que cria e devolve o ViewHolder
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
@@ -34,13 +35,19 @@ class ItemsAdapter(private var items: List<Item>,
         holder.amountTextView.text = "Quantidade: ${item.amount}" // Quantidade
         holder.isCheckedTextView.isChecked = item.isChecked  // Se o item está ou não checked
 
-        // Adiciona um clique no botão de apagar que chama o onDeleteClick, passando-lhe o id do item
+        // Adiciona um clique na imageview de apagar que chama o onDeleteClick, passando-lhe o id do item
         holder.deleteButton.setOnClickListener {
             onDeleteClick(item.itemId)
         }
 
+        // Adiciona um clique na checkbox que chama o onIsCheckedClick, passando-lhe o id do item
         holder.isCheckedTextView.setOnClickListener {
-            onEditClick(item.itemId)
+            onIsCheckedClick(item.itemId)
+        }
+
+        // Adiciona um clique imageview de editar que chama o onEditClick, passando-lhe o item completo
+        holder.editButton.setOnClickListener {
+            onEditClick(item)
         }
     }
 
@@ -59,6 +66,7 @@ class ItemsAdapter(private var items: List<Item>,
         val itemImageView: ImageView = itemView.findViewById(R.id.ivListImage) // Imagem
         val amountTextView: TextView = itemView.findViewById(R.id.tvAmount) // Quantidade
         val isCheckedTextView : CheckBox = itemView.findViewById(R.id.tvChecked) // Se o item está ou não checked
-        val deleteButton: ImageView = itemView.findViewById(R.id.btnDeleteItem) // Botão de apagar item
+        val deleteButton: ImageView = itemView.findViewById(R.id.btnDeleteItem) // ImageView de apagar um item
+        val editButton: ImageView = itemView.findViewById(R.id.btnEditItem) // ImageView para editar um item
     }
 }
