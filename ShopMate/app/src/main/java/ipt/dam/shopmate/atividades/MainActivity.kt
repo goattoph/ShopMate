@@ -2,10 +2,13 @@ package ipt.dam.shopmate.atividades
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
@@ -37,19 +40,38 @@ class MainActivity : AppCompatActivity() {
         // Associar o TabLayout ao ViewPager2
         val tabLayout = findViewById<TabLayout>(R.id.tab_layout)
         // Associar o ViewPager ao TabLayout com ícones personalizados
+//        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
+//            // Verifica a posição do fragmento
+//            when (position) {
+//                0 -> {
+//                    tab.setIcon(R.drawable.ic_launcher_foreground)
+//                }
+//                1 -> {
+//                    tab.setIcon(R.drawable.ic_launcher_profile_foreground)
+//                }
+//                2 -> {
+//                    tab.setIcon(R.drawable.ic_launcher_creators_foreground)
+//                }
+//            }
+//        }.attach()
+//
+        val tabIcons = listOf(
+            R.drawable.ic_launcher_foreground,
+            R.drawable.ic_launcher_profile_foreground,
+            R.drawable.ic_launcher_creators_foreground
+        )
+
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
-            // Verifica a posição do fragmento
-            when (position) {
-                0 -> {
-                    tab.setIcon(R.drawable.ic_launcher_foreground)
-                }
-                1 -> {
-                    tab.setIcon(R.drawable.ic_launcher_profile_foreground)
-                }
-                2 -> {
-                    tab.setIcon(R.drawable.ic_launcher_creators_foreground)
-                }
-            }
+            val customView = LayoutInflater.from(this).inflate(R.layout.custom_tab, null)
+            val iconView = customView.findViewById<ImageView>(R.id.tab_icon)
+
+            iconView.setImageResource(tabIcons[position])
+            tab.customView = customView
         }.attach()
+
+
+        tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(this, R.color.orange))
+
+
     }
 }
