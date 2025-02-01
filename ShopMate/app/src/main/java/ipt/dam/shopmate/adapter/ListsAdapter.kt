@@ -43,6 +43,6 @@ class ListsAdapter( private val lists: List<UsersList>,
     // ViewHolder que tem as referências para as views de cada lista
     inner class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val listNameTextView: TextView = itemView.findViewById(R.id.tvListName) // Nome da Lista
-        val deleteButton: ImageView = itemView.findViewById(R.id.btnDeleteList) // Botão para apagar uma lista
+        val deleteButton: ImageView = itemView.findViewById(R.id.btnDeleteList) // ImageView para apagar uma lista
     }
 }
