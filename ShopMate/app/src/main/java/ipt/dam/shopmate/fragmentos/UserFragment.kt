@@ -83,7 +83,11 @@ class UserFragment : Fragment(R.layout.fragment_user) {
                         override fun onResponse(call: Call<Void>, response: Response<Void>) {
                             if (response.isSuccessful) {
                                 Toast.makeText(context, "Conta apagada com sucesso", Toast.LENGTH_SHORT).show()
+                               //Apagar os dados do sharedpreferences
                                 userPreferences.clearPreferences()
+                                //Apagar a password
+                                val secureStorage = SecureStorage(requireContext())
+                                secureStorage.deletePassword()
                                 val intent = Intent(requireContext(), LoginActivity::class.java)
                                 startActivity(intent)
                             } else {
