@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="escreva_o_email">Escreva o Email</string>
+    <string name="escreva_a_palavra_passe">Escreva a Palavra-Passe</string>
+    <string name="n_registado_criar_conta">Ainda não estás registado? Cria a tua conta!</string>
+    <string name="escreva_o_nome_de_utilizador">Escreva o Nome de Utilizador</string>
+    <string name="reescreva_a_palavra_passe">Reescreva a Palavra-Passe</string>
+    <string name="registar">Registar</string>
+</resources>

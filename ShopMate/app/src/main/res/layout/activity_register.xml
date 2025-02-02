@@ -5,8 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/register"
-    tools:context=".RegisterActivity">
+    android:background="@drawable/register2"
+    tools:context=".atividades.RegisterActivity">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/emailLayout"
@@ -14,9 +14,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="350dp"
-        app:boxStrokeColor="@color/yellow"
-        app:hintTextColor="@color/yellow"
+        android:layout_marginTop="300dp"
+        app:boxStrokeColor="@color/orange"
+        app:hintTextColor="@color/orange"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -27,7 +27,7 @@
             style="@style/LoginTextInputInnerFieldStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Escreva o Email"
+            android:hint="@string/escreva_o_email"
             android:inputType="textEmailAddress" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -38,8 +38,8 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="24dp"
-        app:boxStrokeColor="@color/yellow"
-        app:hintTextColor="@color/yellow"
+        app:boxStrokeColor="@color/orange"
+        app:hintTextColor="@color/orange"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -51,7 +51,7 @@
             style="@style/LoginTextInputInnerFieldStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Escreva o Nome de Utilizador"
+            android:hint="@string/escreva_o_nome_de_utilizador"
             android:inputType="text" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -64,8 +64,8 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="100dp"
-        app:boxStrokeColor="@color/yellow"
-        app:hintTextColor="@color/yellow"
+        app:boxStrokeColor="@color/orange"
+        app:hintTextColor="@color/orange"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -77,7 +77,7 @@
             style="@style/LoginTextInputInnerFieldStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Escreva a Palavra-Passe"
+            android:hint="@string/escreva_a_palavra_passe"
             android:inputType="textPassword" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -88,8 +88,8 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="24dp"
-        app:boxStrokeColor="@color/yellow"
-        app:hintTextColor="@color/yellow"
+        app:boxStrokeColor="@color/orange"
+        app:hintTextColor="@color/orange"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -101,7 +101,7 @@
             style="@style/LoginTextInputInnerFieldStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Reescreva a Palavra-Passe"
+            android:hint="@string/reescreva_a_palavra_passe"
             android:inputType="textPassword" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -110,8 +110,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
-        android:background="@color/yellow"
-        android:text="Registar"
+        android:background="@color/orange"
+        android:text="@string/registar"
         android:textColor="@color/white"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -124,7 +124,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
-        android:text="Já estou registado. Ente na sua conta !"
+        android:text="@string/ja_registado"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"

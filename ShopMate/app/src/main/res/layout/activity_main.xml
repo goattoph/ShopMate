@@ -5,16 +5,62 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".atividades.MainActivity">
 
-    <TextView
-        android:id="@+id/tvLogOut"
+    <ImageView
+        android:id="@+id/imageView"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Log out!"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="200dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/design_one"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="60dp"
+        android:layout_height="130dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/ellipse_one"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="0dp"
+        android:layout_height="210dp"
+        android:layout_marginStart="12dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/design_two"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- ViewPager2 para os fragmentos -->
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="60dp"
+        app:layout_constraintBottom_toTopOf="@id/imageView3"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- TabLayout para as abas -->
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginBottom="35dp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+
+    app:tabIndicatorHeight="5dp"
+    android:background="@android:color/transparent"/>
+
+    <!--    android:layout_marginBottom="35dp"-->
 </androidx.constraintlayout.widget.ConstraintLayout>

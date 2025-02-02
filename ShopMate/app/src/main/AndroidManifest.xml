@@ -3,6 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools">
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <uses-feature android:name="android.hardware.camera.any" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="28" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -15,7 +23,7 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".SplashActivity"
+            android:name=".atividades.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,9 +31,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity"></activity>
-        <activity android:name=".MainActivity"></activity>
-        <activity android:name=".RegisterActivity"></activity>
+        <activity android:name=".atividades.LoginActivity"></activity>
+        <activity android:name=".atividades.MainActivity" android:windowSoftInputMode="adjustResize"></activity>
+        <activity android:name=".atividades.RegisterActivity"></activity>
+        <activity android:name=".atividades.ItemsActivity"></activity>
+<!--        <activity android:name=".atividades.CreateListActivity" android:theme="@style/Theme.AppCompat.Dialog" ></activity>-->
+
+        <activity android:name=".atividades.CreateListActivity" ></activity>
+    <activity android:name=".atividades.CreateItemActivity"></activity>
     </application>
 
 </manifest>

@@ -1,23 +1,27 @@
-package ipt.dam.shopmate
+package ipt.dam.shopmate.atividades
 
+//import android.webkit.CookieManager
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.widget.*
+import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import ipt.dam.shopmate.R
 import ipt.dam.shopmate.retrofit.RetrofitInitializer
 import ipt.dam.shopmate.retrofit.service.LoginRequest
 import ipt.dam.shopmate.retrofit.service.LoginResponse
+import ipt.dam.shopmate.retrofit.service.SecureStorage
 import ipt.dam.shopmate.retrofit.service.UsersPreferences
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-//import android.webkit.CookieManager
-import okhttp3.JavaNetCookieJar
 import java.net.CookieHandler
 import java.net.CookieManager
 import java.net.CookiePolicy
+
 
 //usámos chatgpt no desenvolvimento da classe
 class LoginActivity : AppCompatActivity() {
@@ -32,11 +36,13 @@ class LoginActivity : AppCompatActivity() {
         cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL)
         CookieHandler.setDefault(cookieManager)
 
+        // Inicializar os componentes do layout
         val emailField = findViewById<EditText>(R.id.etEmail)
         val passwordField = findViewById<EditText>(R.id.etPassword)
         val loginButton = findViewById<Button>(R.id.btnLogin)
         val registerText = findViewById<TextView>(R.id.tvRegister)
 
+        //Ação do botão de login
         loginButton.setOnClickListener {
             val email = emailField.text.toString()
             val password = passwordField.text.toString()
@@ -48,21 +54,26 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
+        //Ação do texto de registo
         registerText.setOnClickListener {
             val intent = Intent(this@LoginActivity, RegisterActivity::class.java)
             startActivity(intent)
         }
     }
 
+    //Metodo para fazer o login
     private fun login(email: String, password: String) {
         val request = LoginRequest(email, password)
 
         RetrofitInitializer.usersService.login(request).enqueue(object : Callback<LoginResponse> {
             override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
                 if (response.isSuccessful) {
+                    val secureStorage = SecureStorage(this@LoginActivity)
+                    //Guardar a password num storage encriptado
+                    secureStorage.savePassword(password)
                     // Ir buscar os dados do utilizador na resposta
                     val userName = response.body()?.userName
-                    val userEmail = response.body()?.email
+                    val userEmail = email
 
                     // Guardar os dados no SharedPreferences
                     val userPreferences = UsersPreferences(this@LoginActivity)
