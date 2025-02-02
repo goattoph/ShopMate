@@ -90,6 +90,7 @@ class CreateItemActivity : AppCompatActivity() {
                     .load("https://my-favorite-things.azurewebsites.net/Imagens/$image")
                     .into(imageView)
             }
+        }
 
         // Ação para tirar uma foto
         takePhoto.setOnClickListener {
@@ -114,14 +115,11 @@ class CreateItemActivity : AppCompatActivity() {
             else{
                 addItem(null,null)
             }
-        }
 
         // Botão para cancelar a criação de um item
         btnCancelItem.setOnClickListener {
             finish()
         }
-
-
             // btnUploadItem.setImageResource(R.drawable.ic_launcher_add_foreground)
         }
     }
@@ -157,8 +155,6 @@ class CreateItemActivity : AppCompatActivity() {
         // Se o itemId não for null ou inválido
         val call = if (itemId != null && itemId != -1) {
             // Atualizar item existente
-            Log.d("CreateItemActivity", "A editar o item com o ID: $itemId")
-
             RetrofitInitializer.usersService.editItem(
                 itemId!!, itemNamePart, amountPart, isCheckedPart, imagePart
             )
