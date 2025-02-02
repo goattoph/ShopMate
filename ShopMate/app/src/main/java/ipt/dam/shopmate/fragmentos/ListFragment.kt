@@ -2,6 +2,7 @@ package ipt.dam.shopmate.fragmentos
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Looper
 import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.Toast
@@ -19,7 +20,7 @@ import ipt.dam.shopmate.retrofit.RetrofitInitializer
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-
+import android.os.Handler
 
 class ListFragment : Fragment(R.layout.fragment_list){
     // RecyclerView para mostrar as listas
@@ -48,7 +49,9 @@ class ListFragment : Fragment(R.layout.fragment_list){
         recyclerView.adapter = listsAdapter
 
         // Carregar as listas do utilizador autenticado
-        loadLists()
+        Handler(Looper.getMainLooper()).postDelayed({
+            loadLists()
+        }, 5000)
 
         // Botão para abrir a atividade de criar uma lista
         view.findViewById<View>(R.id.btnCreateList).setOnClickListener {
@@ -95,7 +98,7 @@ class ListFragment : Fragment(R.layout.fragment_list){
         // Criar e mostrar um AlertDialog para confirmar a exclusão da lista
         val alertDialog = androidx.appcompat.app.AlertDialog.Builder(context)
             .setTitle("Confirmar exclusão!")
-            .setMessage("Tem a certeza de que deseja apagar esta lista?")
+            .setMessage("Ao apagar a lista vai apagar todos os seus itens. Tem a certeza de que deseja apagar esta lista?")
             .setPositiveButton("Sim") { dialog, _ ->
                 // Caso sim, a lista é eliminada
                 RetrofitInitializer.usersService.deleteList(listId).enqueue(object : Callback<Void> {
