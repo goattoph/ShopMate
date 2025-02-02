@@ -22,6 +22,7 @@ import retrofit2.Response
 class UserFragment : Fragment(R.layout.fragment_user) {
 
     private lateinit var tvUsername: TextView
+    private lateinit var tvEmail: TextView
     private lateinit var btnLogOut: Button
     private lateinit var btnDeleteAccount: Button
 
@@ -30,13 +31,16 @@ class UserFragment : Fragment(R.layout.fragment_user) {
         super.onViewCreated(view, savedInstanceState)
 
         tvUsername = view.findViewById(R.id.tvUsername)
+        tvEmail = view.findViewById(R.id.tvEmail)
         btnLogOut = view.findViewById(R.id.btnLogOut)
         btnDeleteAccount = view.findViewById(R.id.btnDeleteAccount)
 
         val userPreferences = UsersPreferences(requireContext())
         val username = userPreferences.getUserName()
+        val email = userPreferences.getUserEmail()
 
         tvUsername.text = "Username: $username"
+        tvEmail.text = "Email: $email"
 
         btnLogOut.setOnClickListener {
             RetrofitInitializer.usersService.logOut().enqueue(object : Callback<Void> {
@@ -45,6 +49,7 @@ class UserFragment : Fragment(R.layout.fragment_user) {
                         val secureStorage = SecureStorage(requireContext())
                         //Apagar a password
                         secureStorage.deletePassword()
+                        //Apagar os dados do utilizador
                         userPreferences.clearPreferences()
                         val intent = Intent(requireContext(), LoginActivity::class.java)
                         startActivity(intent)

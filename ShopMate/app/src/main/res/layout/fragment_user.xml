@@ -21,51 +21,78 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
+    <!-- Avatar -->
+    <ImageView
+        android:id="@+id/ivAvatar"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/baseline_person_24"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="18dp"
+        android:layout_gravity="center"
+        android:scaleType="centerCrop"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:gravity="center"
         android:padding="24dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/ivAvatar"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent">
 
-        <!-- Nome de Utilizador -->
-        <TextView
-            android:id="@+id/tvUsername"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Username: Rui"
-            android:textSize="18sp"
-            android:textColor="#333333"
-            android:textStyle="bold"
-            android:gravity="center"
-            android:layout_marginBottom="24dp"/>
+    <!-- Nome do Utilizador -->
+    <TextView
+        android:id="@+id/tvUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Username: Rui"
+        android:textSize="18sp"
+        android:textColor="#333333"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_marginBottom="24dp"/>
 
-        <!-- Botão de Logout -->
-        <Button
-            android:id="@+id/btnLogOut"
-            android:layout_width="250dp"
-            android:layout_height="50dp"
-            android:text="Terminar Sessão"
-            android:textSize="16sp"
-            android:backgroundTint="@color/yellow"
-            android:textColor="@color/white"
-            android:layout_marginBottom="16dp"
-            android:elevation="4dp"/>
+    <TextView
+        android:id="@+id/tvEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Email: Rui"
+        android:textSize="18sp"
+        android:textColor="#333333"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_marginBottom="24dp"/>
 
-        <!-- Botão de Apagar Conta -->
-        <Button
-            android:id="@+id/btnDeleteAccount"
-            android:layout_width="250dp"
-            android:layout_height="50dp"
-            android:text="Apagar Conta"
-            android:textSize="16sp"
-            android:backgroundTint="@color/red"
-            android:textColor="@color/white"
-            android:elevation="4dp"/>
-    </LinearLayout>
+    <!-- Botão de Logout -->
+    <Button
+        android:id="@+id/btnLogOut"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:text="Terminar Sessão"
+        android:textSize="16sp"
+        android:backgroundTint="@color/yellow"
+        android:textColor="@color/white"
+        android:layout_marginBottom="16dp"
+        android:elevation="4dp"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <!-- Botão de Apagar Conta -->
+    <Button
+        android:id="@+id/btnDeleteAccount"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:text="Apagar Conta"
+        android:textSize="16sp"
+        android:backgroundTint="@color/red"
+        android:textColor="@color/white"
+        android:elevation="4dp"/>
+</LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+  
