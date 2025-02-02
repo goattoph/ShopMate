@@ -14,8 +14,6 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-
-//usámos chatgpt no desenvolvimento da classe
 class CreateListActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,7 +21,7 @@ class CreateListActivity : AppCompatActivity() {
         // Defininir o layout da atividade
         setContentView(R.layout.new_list)
         window.statusBarColor = ContextCompat.getColor(this, R.color.grey)
-        // Inicializando os componentes do layout
+        // Inicializar os componentes do layout
         val etListName = findViewById<EditText>(R.id.etPopupListName)
         val btnSave = findViewById<Button>(R.id.btnPopupSave)
         val btnCancel = findViewById<Button>(R.id.btnPopupCancel)

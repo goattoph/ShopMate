@@ -31,10 +31,10 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.io.File
 import java.io.FileOutputStream
-
+//usámos chatgpt no desenvolvimento da classe
 class CreateItemActivity : AppCompatActivity() {
 
-    // Define a var itemId do tipo Int?, pode armazenar um int ou null
+    // Define a var itemId do tipo Int?, pode guardar um int ou null
     private var itemId: Int? = null
 
     // Elementos da interface
@@ -106,21 +106,21 @@ class CreateItemActivity : AppCompatActivity() {
         // Botão para adicionar um item
         btnUploadItem.setOnClickListener {
             if (itemImagePart != null && !image.isNullOrEmpty()) {
-                // Adiciona o item com a imagem
+                // Adiciona o item com a imagem e com o image(string da imagem que já foi guardada)
                 addItem(itemImagePart!!, image!!)
             } else if(itemImagePart != null && image.isNullOrEmpty()){
-                // Adiciona o item sem imagem
+                // Adiciona o item com a imagem e com o image a null
                 addItem(itemImagePart!!, null)
             }
             else if(itemImagePart == null && !image.isNullOrEmpty()){
+                // Adiciona o item sem imagem e com o image(string da imagem que já foi guardada)
                 addItem(null, image!!)
             }
             else{
+                // Adiciona o item sem imagem e com o image também a null
                 addItem(null,null)
             }
 
-
-            // btnUploadItem.setImageResource(R.drawable.ic_launcher_add_foreground)
         }
     }
 
@@ -189,17 +189,17 @@ class CreateItemActivity : AppCompatActivity() {
         if (requestCode == CAMERA_REQUEST_CODE && resultCode == RESULT_OK) {
             // Vai buscar a imagem tirada
             val imageBitmap = data?.extras?.get("data") as Bitmap
-            // Exibe a imagem no imageView
+            // Mostra a imagem no imageView
             imageView.setImageBitmap(imageBitmap)
             window.statusBarColor = ContextCompat.getColor(this, R.color.grey)
-            // Guarda a imagem num arquivo temporário
+            // Guarda a imagem num ficheiro temporário
             try {
                 val file = createTempFile("item_image", ".jpg", cacheDir)
                 val outputStream = FileOutputStream(file)
                 imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
                 outputStream.flush()
                 outputStream.close()
-                // Utilizar o arquivo para criar a requisição para enviar a imagem
+                // Utilizar o ficheiro para criar a requisição para enviar a imagem
                 val imageFile = file
                 val requestBody = imageFile.asRequestBody("image/jpeg".toMediaTypeOrNull())
                 itemImagePart = MultipartBody.Part.createFormData("itemImage", imageFile.name, requestBody)

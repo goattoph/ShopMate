@@ -14,21 +14,6 @@ import retrofit2.http.PUT
 import retrofit2.http.Part
 import retrofit2.http.Path
 
-//import ipt.dam.api.model.APIResult
-
-//interface UsersService {
-//    @GET("https://my-favorite-things.azurewebsites.net/api/Reviews/reviews-paginated?pageNumber=1&pageSize=9&byUser=false")
-//    fun list(): Call<List<Note>>
-
-//    @GET("API/reset.php")
-//    fun reset(): Call<List<Note>>
-
-//    @FormUrlEncoded
-//    @POST("API/addNote.php")
-//    fun addNote(@Field("title") title: String?, @Field("description") description: String?): Call<APIResult>
-
-//}
-
 // Data class para representar o corpo da requisição de login
 data class LoginRequest(val email: String, val password: String)
 

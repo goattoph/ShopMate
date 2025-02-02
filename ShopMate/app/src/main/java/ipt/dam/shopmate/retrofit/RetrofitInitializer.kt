@@ -20,7 +20,7 @@ object RetrofitInitializer {
     }
 
     private val okHttpClient = OkHttpClient.Builder()
-        .cookieJar(JavaNetCookieJar(cookieManager)) // Suporte a cookies
+        .cookieJar(JavaNetCookieJar(cookieManager)) // Suporte as cookies
         .build()
 
     private val retrofit = Retrofit.Builder()

@@ -119,7 +119,7 @@ class ItemsActivity : AppCompatActivity() {
     // Função para eliminar um item
     private fun deleteItem(itemId: Int) {
         val context = this
-        // Cria um AlertDialog para confirmar a exclusão
+        // Cria um AlertDialog para confirmar se o utilizador quer mesmo eliminar o item
         val alertDialog = androidx.appcompat.app.AlertDialog.Builder(context)
             .setTitle("Confirmar exclusão!")
             .setMessage("Tem a certeza de que deseja apagar este item?")

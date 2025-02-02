@@ -18,55 +18,6 @@ import java.net.CookiePolicy
 
 class SplashActivity : AppCompatActivity() {
 
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//
-//        // Verificar se o utilizador está logado
-//        val userPreferences = UsersPreferences(this@SplashActivity)
-//        val isLoggedIn = userPreferences.isLoggedIn()
-//     // Configurar o CookieManager global
-//        val cookieManager = CookieManager()
-//        cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL)
-//        CookieHandler.setDefault(cookieManager)
-//        // Se o utilizador estiver logado, vai para a MainActivity
-//        if (isLoggedIn) {
-//            val userPreferences = UsersPreferences(this)
-//            val email = userPreferences.getUserEmail()
-//            val secureStorage = SecureStorage(this)
-//            val password: String? = secureStorage.password
-//            if (email != null && password != null) {
-//                login(email, password)
-//            } else {
-//                startActivity(Intent(this, LoginActivity::class.java))
-//            }
-//            startActivity(Intent(this, MainActivity::class.java))
-//        } else {
-//            // Caso contrário, vai para a LoginActivity
-//            startActivity(Intent(this, LoginActivity::class.java))
-//        }
-//
-//        // Finaliza a SplashActivity para não voltar para ela
-//        finish()
-//    }
-//    private fun login(email: String, password: String) {
-//        val request = LoginRequest(email, password)
-//
-//        RetrofitInitializer.usersService.login(request).enqueue(object : Callback<LoginResponse> {
-//            override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
-//                if (!response.isSuccessful) {
-//                    startActivity(Intent(this@SplashActivity, LoginActivity::class.java))
-//                }
-//                else{
-//                    Toast.makeText(this@SplashActivity, "Correu bem", Toast.LENGTH_SHORT).show()
-//                }
-//            }
-//            override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
-//                Toast.makeText(this@SplashActivity, "Erro na conexão: ${t.message}", Toast.LENGTH_SHORT).show()
-//                startActivity(Intent(this@SplashActivity, LoginActivity::class.java))
-//            }
-//        })
-//    }
-
     fun login(email: String, password: String) {
         val request = LoginRequest(email, password)
 

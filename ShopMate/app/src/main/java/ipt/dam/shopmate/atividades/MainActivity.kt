@@ -39,38 +39,25 @@ class MainActivity : AppCompatActivity() {
 
         // Associar o TabLayout ao ViewPager2
         val tabLayout = findViewById<TabLayout>(R.id.tab_layout)
-        // Associar o ViewPager ao TabLayout com ícones personalizados
-//        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
-//            // Verifica a posição do fragmento
-//            when (position) {
-//                0 -> {
-//                    tab.setIcon(R.drawable.ic_launcher_foreground)
-//                }
-//                1 -> {
-//                    tab.setIcon(R.drawable.ic_launcher_profile_foreground)
-//                }
-//                2 -> {
-//                    tab.setIcon(R.drawable.ic_launcher_creators_foreground)
-//                }
-//            }
-//        }.attach()
-//
+
+        // Lista de ícones que são usados nas abas do TabLayout
         val tabIcons = listOf(
             R.drawable.ic_launcher_foreground_black,
             R.drawable.ic_launcher_profile_foreground,
             R.drawable.ic_launcher_creators_foreground
         )
 
+        // Configuração do TabLayout com o ViewPager
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
             val customView = LayoutInflater.from(this).inflate(R.layout.custom_tab, null)
             val iconView = customView.findViewById<ImageView>(R.id.tab_icon)
-
             iconView.setImageResource(tabIcons[position])
             tab.customView = customView
         }.attach()
 
-
+        // Altera a cor do indicador que mostra a aba selecionada
         tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(this, R.color.orange))
+
 
 
     }

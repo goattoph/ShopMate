@@ -36,11 +36,13 @@ class LoginActivity : AppCompatActivity() {
         cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL)
         CookieHandler.setDefault(cookieManager)
 
+        // Inicializar os componentes do layout
         val emailField = findViewById<EditText>(R.id.etEmail)
         val passwordField = findViewById<EditText>(R.id.etPassword)
         val loginButton = findViewById<Button>(R.id.btnLogin)
         val registerText = findViewById<TextView>(R.id.tvRegister)
 
+        //Ação do botão de login
         loginButton.setOnClickListener {
             val email = emailField.text.toString()
             val password = passwordField.text.toString()
@@ -52,12 +54,14 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
+        //Ação do texto de registo
         registerText.setOnClickListener {
             val intent = Intent(this@LoginActivity, RegisterActivity::class.java)
             startActivity(intent)
         }
     }
 
+    //Metodo para fazer o login
     private fun login(email: String, password: String) {
         val request = LoginRequest(email, password)
 
