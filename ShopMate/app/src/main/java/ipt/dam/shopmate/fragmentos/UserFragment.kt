@@ -12,6 +12,7 @@ import android.widget.Toast
 import ipt.dam.shopmate.R
 import ipt.dam.shopmate.atividades.LoginActivity
 import ipt.dam.shopmate.retrofit.RetrofitInitializer
+import ipt.dam.shopmate.retrofit.service.SecureStorage
 import ipt.dam.shopmate.retrofit.service.UsersPreferences
 import retrofit2.Call
 import retrofit2.Callback
@@ -41,6 +42,9 @@ class UserFragment : Fragment(R.layout.fragment_user) {
             RetrofitInitializer.usersService.logOut().enqueue(object : Callback<Void> {
                 override fun onResponse(call: Call<Void>, response: Response<Void>) {
                     if (response.isSuccessful) {
+                        val secureStorage = SecureStorage(requireContext())
+                        //Apagar a password
+                        secureStorage.deletePassword()
                         userPreferences.clearPreferences()
                         val intent = Intent(requireContext(), LoginActivity::class.java)
                         startActivity(intent)

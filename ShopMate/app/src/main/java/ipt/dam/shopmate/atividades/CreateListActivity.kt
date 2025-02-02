@@ -86,7 +86,6 @@ class CreateListActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         // Defininir o layout da atividade
         setContentView(R.layout.new_list)
         window.statusBarColor = ContextCompat.getColor(this, R.color.grey)
@@ -94,11 +93,7 @@ class CreateListActivity : AppCompatActivity() {
         val etListName = findViewById<EditText>(R.id.etPopupListName)
         val btnSave = findViewById<Button>(R.id.btnPopupSave)
         val btnCancel = findViewById<Button>(R.id.btnPopupCancel)
-//        etListName.requestFocus()
-//        //Forçar o teclado a aparecer
-//        val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-//        inputMethodManager.showSoftInput(etListName, InputMethodManager.SHOW_IMPLICIT)
-        // Carregar no botão guardar
+
         btnSave.setOnClickListener {
             val listName = etListName.text.toString().trim()
             if (listName.isNotEmpty()) {

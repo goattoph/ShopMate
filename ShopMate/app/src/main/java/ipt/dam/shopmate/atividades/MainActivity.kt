@@ -56,7 +56,7 @@ class MainActivity : AppCompatActivity() {
 //        }.attach()
 //
         val tabIcons = listOf(
-            R.drawable.ic_launcher_foreground,
+            R.drawable.ic_launcher_foreground_black,
             R.drawable.ic_launcher_profile_foreground,
             R.drawable.ic_launcher_creators_foreground
         )

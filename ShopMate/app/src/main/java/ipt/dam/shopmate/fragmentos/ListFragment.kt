@@ -12,6 +12,7 @@ import ipt.dam.shopmate.R
 import ipt.dam.shopmate.adapter.ListsAdapter
 import ipt.dam.shopmate.atividades.CreateListActivity
 import ipt.dam.shopmate.atividades.ItemsActivity
+import ipt.dam.shopmate.atividades.LoginActivity
 import ipt.dam.shopmate.databinding.ActivityMainBinding
 import ipt.dam.shopmate.models.UsersList
 import ipt.dam.shopmate.retrofit.RetrofitInitializer
@@ -76,11 +77,13 @@ class ListFragment : Fragment(R.layout.fragment_list){
                     recyclerView.adapter = listsAdapter
                 } else {
                     Toast.makeText(context, "Erro ao carregar as listas", Toast.LENGTH_SHORT).show()
+
                 }
             }
             // Metodo chamado em caso de erro
             override fun onFailure(call: Call<List<UsersList>>, t: Throwable) {
                 Toast.makeText(context, "Erro ao conectar", Toast.LENGTH_SHORT).show()
+                startActivity(Intent(requireContext(), LoginActivity::class.java))
             }
         })
     }
