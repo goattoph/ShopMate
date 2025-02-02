@@ -99,7 +99,10 @@ class CreateItemActivity : AppCompatActivity() {
             // Inicia a captura
             startActivityForResult(intent, CAMERA_REQUEST_CODE)
         }
-
+// Botão para cancelar a criação de um item
+        btnCancelItem.setOnClickListener {
+            finish()
+        }
         // Botão para adicionar um item
         btnUploadItem.setOnClickListener {
             if (itemImagePart != null && !image.isNullOrEmpty()) {
@@ -116,10 +119,7 @@ class CreateItemActivity : AppCompatActivity() {
                 addItem(null,null)
             }
 
-        // Botão para cancelar a criação de um item
-        btnCancelItem.setOnClickListener {
-            finish()
-        }
+
             // btnUploadItem.setImageResource(R.drawable.ic_launcher_add_foreground)
         }
     }
